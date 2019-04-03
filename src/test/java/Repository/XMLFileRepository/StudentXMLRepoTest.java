@@ -48,7 +48,66 @@ public class StudentXMLRepoTest {
         student.setEmail("geo@geo.com");
         mStudentXMLRepo.save(student);
         assertNotEquals("Sergiu", mStudentXMLRepo.findOne("1").getNume());
-
         assertEquals("Geo", mStudentXMLRepo.findOne("1").getNume());
+    }
+
+    @Test(expected = ValidatorException.class)
+    public void saveStudent3() throws ValidatorException {
+        Student student = new Student("a", "Sergiu", 931, "sergiu@sergiu.com", "Andreea Vescan");
+        mStudentXMLRepo.save(student);
+    }
+
+    @Test(expected = ValidatorException.class)
+    public void saveStudent4() throws ValidatorException {
+        Student student = new Student(null, "Sergiu", 931, "sergiu@sergiu.com", "Andreea Vescan");
+        mStudentXMLRepo.save(student);
+    }
+
+    @Test(expected = ValidatorException.class)
+    public void saveStudent5() throws ValidatorException {
+        Student student = new Student("1", null, 931, "sergiu@sergiu.com", "Andreea Vescan");
+        mStudentXMLRepo.save(student);
+    }
+
+    @Test(expected = ValidatorException.class)
+    public void saveStudent6() throws ValidatorException {
+        Student student = new Student("1", "Gheorghe", 0, "Gheorghe@yahoo.com", "Andreea Vescan");
+        mStudentXMLRepo.save(student);
+    }
+
+    @Test(expected = ValidatorException.class)
+    public void saveStudent7() throws ValidatorException {
+        Student student = new Student("1", "Gheorghe", 931, "", "Andreea Vescan");
+        mStudentXMLRepo.save(student);
+    }
+
+    @Test(expected = ValidatorException.class)
+    public void saveStudent8() throws ValidatorException {
+        Student student = new Student("1", "Gheorghe", 931, null, "Andreea Vescan");
+        mStudentXMLRepo.save(student);
+    }
+
+    @Test(expected = ValidatorException.class)
+    public void saveStudent9() throws ValidatorException {
+        Student student = new Student("1", "Gheorghe", 931, "gheorghe@gheorghe.com", "");
+        mStudentXMLRepo.save(student);
+    }
+
+    @Test(expected = ValidatorException.class)
+    public void saveStudent10() throws ValidatorException {
+        Student student = new Student("1", "Gheorghe", 931, "gheorghe@gheorghe.com", null);
+        mStudentXMLRepo.save(student);
+    }
+
+    @Test(expected = ValidatorException.class)
+    public void saveStudent12() throws ValidatorException {
+        Student student = new Student("1", "sergiu", Integer.MAX_VALUE, "sergiu@sergiu", "Andreea Vescan");
+        mStudentXMLRepo.save(student);
+    }
+
+    @Test
+    public void saveStudent11() throws ValidatorException {
+        Student student = new Student(String.valueOf(Integer.MAX_VALUE), "Gheorghe", 931, "gheorghe@gheorghe.com", "Andreea Vescan");
+        mStudentXMLRepo.save(student);
     }
 }
