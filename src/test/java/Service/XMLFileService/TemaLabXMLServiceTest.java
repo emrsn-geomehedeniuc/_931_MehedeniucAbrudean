@@ -7,6 +7,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 import static org.junit.Assert.*;
 
 public class TemaLabXMLServiceTest {
@@ -31,11 +34,24 @@ public class TemaLabXMLServiceTest {
 
     @Test
     public void addAssignment1() throws ValidatorException {
-        assertEquals(true, true);
+        String id = "1";
+        String descr = "What there is to be done";
+        String saptLim = "6";
+        String saptPred = "4";
+
+        String[] params = {id, descr, saptLim, saptPred};
+        mTemaLabXMLService.add(params);
+        assertEquals(StreamSupport.stream(mTemaLabXMLService.findAll().spliterator(), false).collect(Collectors.toList()).size(), 1);
     }
 
-    @Test
+    @Test(expected = ValidatorException.class)
     public void addAssignment2() throws ValidatorException {
-        assertEquals(true, true);
+        String id = "2";
+        String descr = "Descriere Tema";
+        String saptLim = "6";
+        String saptPred = "15";
+
+        String[] params = {id, descr, saptLim, saptPred};
+        mTemaLabXMLService.add(params);
     }
 }
