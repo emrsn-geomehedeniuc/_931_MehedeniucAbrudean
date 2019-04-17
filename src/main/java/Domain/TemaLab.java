@@ -6,19 +6,22 @@ public class TemaLab implements HasId<Integer> {
     private int nr;
     private String descriere;
     private int termenLimita;
-   // private int saptamanaCurenta;
+    // private int saptamanaCurenta;
     private int saptammanaPredarii;
-    public TemaLab(int nr,String descriere,int termenLimita,int saptammanaPredarii){
+
+    public TemaLab(int nr, String descriere, int termenLimita, int saptammanaPredarii) {
         this.setId(nr);
         this.setDescriere(descriere);
         this.setTermenLimita(termenLimita);
         //this.setSaptamanaCurenta(saptamanaCurenta);
         this.setSaptammanaPredarii(saptammanaPredarii);
     }
+
     @Override
     public Integer getId() {
         return nr;
     }
+
     @Override
     public void setId(Integer nr) {
         this.nr = nr;
@@ -47,9 +50,10 @@ public class TemaLab implements HasId<Integer> {
     public void setSaptammanaPredarii(int saptammanaPredarii) {
         this.saptammanaPredarii = saptammanaPredarii;
     }
+
     @Override
-    public String toString(){
-        return this.nr+"#"+this.descriere+"#"+this.termenLimita+"#"+this.saptammanaPredarii;
+    public String toString() {
+        return this.nr + "#" + this.descriere + "#" + this.termenLimita + "#" + this.saptammanaPredarii;
     }
 
     //public int getSaptamanaCurenta() { return saptamanaCurenta; }
