@@ -88,7 +88,7 @@ public class TemaLabXMLServiceTest {
         mTemaLabXMLService.add(params);
     }
 
-    @Test(expected = ValidatorException.class)
+    @Test(expected = NumberFormatException.class)
     public void addAssignment6() throws ValidatorException {
         String id = "1";
         String descr = "Work To Be Done";
@@ -100,7 +100,7 @@ public class TemaLabXMLServiceTest {
     }
 
 
-    @Test(expected = ValidatorException.class)
+    @Test(expected = NumberFormatException.class)
     public void addAssignment7() throws ValidatorException {
         String id = "1";
         String descr = "Work To Be Done";
