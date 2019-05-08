@@ -12,11 +12,11 @@ public class NotaXMLRepo extends AbstractXMLRepo<Integer, Nota> {
     //private String fileName;
 
     public NotaXMLRepo(NotaValidator v, String fileName) {
-        super(v,fileName);
+        super(v, fileName);
     }
 
     @Override
-    protected Element createElementFromEntity(Document document,Nota n) {
+    protected Element createElementFromEntity(Document document, Nota n) {
         Element root = document.getDocumentElement();
         Element e = document.createElement("nota");
         e.appendChild(createElement("id", document, n.getId().toString()));
@@ -29,26 +29,29 @@ public class NotaXMLRepo extends AbstractXMLRepo<Integer, Nota> {
 
 
     @Override
-    protected Nota createEntityFromElement(Element notaElement){
-        String id=notaElement.getAttribute("id");
-        String idStudent=notaElement
+    protected Nota createEntityFromElement(Element notaElement) {
+        String id = notaElement
+                .getElementsByTagName("id")
+                .item(0)
+                .getTextContent();
+        String idStudent = notaElement
                 .getElementsByTagName("idStudent")
                 .item(0)
                 .getTextContent();
-        String idTemaLab=notaElement
+        String idTemaLab = notaElement
                 .getElementsByTagName("idTemaLab")
                 .item(0)
                 .getTextContent();
-        String val=notaElement
+        String val = notaElement
                 .getElementsByTagName("valoare")
                 .item(0)
                 .getTextContent();
-        String data=notaElement
+        String data = notaElement
                 .getElementsByTagName("data")
                 .item(0)
                 .getTextContent();
 
-        return new Nota(Integer.parseInt(id),idStudent,Integer.parseInt(idTemaLab),Double.parseDouble(val), LocalDateTime.parse(data));
+        return new Nota(Integer.parseInt(id), idStudent, Integer.parseInt(idTemaLab), Double.parseDouble(val), LocalDateTime.parse(data));
     }
 
 

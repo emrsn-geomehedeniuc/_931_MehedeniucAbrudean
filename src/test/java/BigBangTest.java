@@ -80,8 +80,8 @@ public class BigBangTest {
     @Test
     public void addGrade() throws ValidatorException, IOException {
 
-        addStudent();
-        addAssignment();
+//        addStudent();
+//        addAssignment();
 
         String id, idStudent, idTema, value, date;
         id = "1";
@@ -93,6 +93,6 @@ public class BigBangTest {
         String[] params = {id, idStudent, idTema, value, date};
         mNotaXMLService.add(params);
         assertEquals(StreamSupport.stream(mNotaXMLService.findAll().spliterator(), false).collect(Collectors.toList()).size(), 1);
-        mNotaXMLService.printAllNotes(mTemaLabXMLService);
+        mNotaXMLService.findAll().forEach(x-> System.out.println(x));
     }
 }

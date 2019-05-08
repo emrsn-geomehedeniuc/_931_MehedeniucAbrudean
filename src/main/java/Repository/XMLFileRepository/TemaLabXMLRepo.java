@@ -27,7 +27,7 @@ public class TemaLabXMLRepo extends AbstractXMLRepo<Integer, TemaLab> {
 
     @Override
     protected TemaLab createEntityFromElement(Element temaLabElement){
-        String nr=temaLabElement.getAttribute("nr");
+        String nr = temaLabElement.getElementsByTagName("id").item(0).getTextContent();
         String descr=temaLabElement
                 .getElementsByTagName("descriere")
                 .item(0)

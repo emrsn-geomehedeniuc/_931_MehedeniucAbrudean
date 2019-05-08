@@ -29,7 +29,9 @@ public class StudentXMLRepo extends AbstractXMLRepo<String, Student> {
     @Override
     protected Student createEntityFromElement(Element studentElement){
         String id=studentElement
-                .getAttribute("id");
+                .getElementsByTagName("id")
+                .item(0)
+                .getTextContent();
         String nume=studentElement
                 .getElementsByTagName("nume")
                 .item(0)
@@ -44,7 +46,7 @@ public class StudentXMLRepo extends AbstractXMLRepo<String, Student> {
                 .item(0)
                 .getTextContent();
         String prof=studentElement
-                .getElementsByTagName("prof")
+                .getElementsByTagName("profesor")
                 .item(0)
                 .getTextContent();
         return new Student(id,nume,gr,email,prof);

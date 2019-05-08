@@ -15,7 +15,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-public abstract class AbstractXMLRepo<ID,E extends HasId<ID>> extends AbstractCrudRepo<ID,E> {
+public abstract class AbstractXMLRepo<ID, E extends HasId<ID>> extends AbstractCrudRepo<ID, E> {
     private String fileName;
 
     public AbstractXMLRepo(IValidator v, String fileName) {
@@ -26,9 +26,9 @@ public abstract class AbstractXMLRepo<ID,E extends HasId<ID>> extends AbstractCr
 
     protected abstract E createEntityFromElement(Element entityElement);
 
-    protected abstract Element createElementFromEntity(Document document,E e);
+    protected abstract Element createElementFromEntity(Document document, E e);
 
-    protected Element createElement(String tag, Document doc, String value){
+    protected Element createElement(String tag, Document doc, String value) {
         Element e = (Element) doc.createElement(tag);
         e.setTextContent(value);
         Element root = doc.getDocumentElement();
@@ -42,45 +42,45 @@ public abstract class AbstractXMLRepo<ID,E extends HasId<ID>> extends AbstractCr
                     .newDocumentBuilder()
                     .parse(this.fileName);
 
-            Element root=document.getDocumentElement();
-            NodeList children=root.getChildNodes();
-            for(int i=0;i<children.getLength();i++){
-                Node entityElement=children.item(i);
-                if(entityElement instanceof Element){
-                    E e=createEntityFromElement((Element)entityElement);
+            Element root = document.getDocumentElement();
+            NodeList children = root.getChildNodes();
+            for (int i = 0; i < children.getLength(); i++) {
+                Node entityElement = children.item(i);
+                if (entityElement instanceof Element) {
+                    E e = createEntityFromElement((Element) entityElement);
                     super.save(e);
                 }
             }
-        }catch (Exception ex){
-
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
-    private void writeAll(){
-        try{
-            Document document=DocumentBuilderFactory
+    private void writeAll() {
+        try {
+            Document document = DocumentBuilderFactory
                     .newInstance()
                     .newDocumentBuilder()
                     .newDocument();
-            Element root=document.createElement("inbox");
+            Element root = document.createElement("inbox");
             document.appendChild(root);
-            super.findAll().forEach(s->{
-                Element e=createElementFromEntity(document,s);
+            super.findAll().forEach(s -> {
+                Element e = createElementFromEntity(document, s);
                 root.appendChild(e);
             });
-            Transformer transformer= TransformerFactory
+            Transformer transformer = TransformerFactory
                     .newInstance()
                     .newTransformer();
-            transformer.transform(new DOMSource(document),new StreamResult(fileName));
-        }catch (Exception ex){
+            transformer.transform(new DOMSource(document), new StreamResult(fileName));
+        } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
     }
 
     @Override
     public E save(E e) throws ValidatorException {
-        E stuff=super.save(e);
-        if(stuff==null){
+        E stuff = super.save(e);
+        if (stuff == null) {
             writeAll();
         }
         return stuff;
@@ -88,27 +88,28 @@ public abstract class AbstractXMLRepo<ID,E extends HasId<ID>> extends AbstractCr
 
     @Override
     public E delete(ID id) {
-        E stuff=super.delete(id);
-        if(stuff!=null)
+        E stuff = super.delete(id);
+        if (stuff != null)
             writeAll();
         return stuff;
     }
 
     @Override
     public E update(E entity) {
-        E stuff=super.update(entity);
-        if(stuff!=null)
+        E stuff = super.update(entity);
+        if (stuff != null)
             writeAll();
         return stuff;
     }
+
     @Override
-    public  E findOne(ID id){
+    public E findOne(ID id) {
         return super.findOne(id);
     }
 
-    public int getSize(){
-        int x=0;
-        for(E s:super.findAll()){
+    public int getSize() {
+        int x = 0;
+        for (E s : super.findAll()) {
             x++;
         }
         return x;
