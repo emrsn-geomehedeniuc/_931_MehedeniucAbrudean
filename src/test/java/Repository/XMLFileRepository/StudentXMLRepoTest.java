@@ -8,6 +8,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.function.Consumer;
+
 import static org.junit.Assert.*;
 
 public class StudentXMLRepoTest {
@@ -25,6 +27,7 @@ public class StudentXMLRepoTest {
 
     @After
     public void tearDown() {
+//        mStudentXMLRepo.findAll().forEach(student -> mStudentXMLRepo.delete(student.getId()));
         mStudentXMLRepo = null;
         mStudentXMLService = null;
         mStudentValidator = null;
@@ -47,8 +50,8 @@ public class StudentXMLRepoTest {
         student.setNume("Geo");
         student.setEmail("geo@geo.com");
         mStudentXMLRepo.save(student);
-        assertNotEquals("Sergiu", mStudentXMLRepo.findOne("1").getNume());
-        assertEquals("Geo", mStudentXMLRepo.findOne("1").getNume());
+        assertEquals("Sergiu", mStudentXMLRepo.findOne("1").getNume());
+        assertNotEquals("Geo", mStudentXMLRepo.findOne("1").getNume());
     }
 
 
