@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<inbox>
+    <tema>
+        <id>1</id>
+        <descriere>What there is to be done</descriere>
+        <saptamanaLimita>10</saptamanaLimita>
+        <saptamanaPredarii>9</saptamanaPredarii>
+    </tema>
+</inbox>
